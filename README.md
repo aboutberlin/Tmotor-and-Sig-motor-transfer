@@ -1,9 +1,15 @@
 这两套代码几乎一样，但是区别在于底层的电机不同。希望日后有人能够开发一个一件切换的代码。我这边先暂时写出两者区别，方便后人参考
 
+## 1:
 在主ino代码里面。11行，#include "Sig_Motor_Control.h"   和#include "Motor_Control_Tmotor.h"
+同时，Sig_Motor_Control.h换成Motor_Control_Tmotor.h
+同时，Sig_Motor_Control.cpp换成Motor_Control_Tmotor.cpp
 
+
+## 2:
 在initial_Sig_motor函数，整个替换
 
+## 3:
 在loop函数下发阶段，sig
     if (ctl_mode == 1){
         sig_m1.sig_mit_ctl_cmd(0.0,0.0,10.0,0.01,M1_torque_command);
@@ -19,6 +25,7 @@
     sig_m1.send_cmd(0.0f, 0.0f, 0.0f, 0.0f, (float)M1_torque_command);
     sig_m2.send_cmd(0.0f, 0.0f, 0.0f, 0.0f, (float)M2_torque_command);
 
+## 4:
 tmotor的实测扭矩：
 // 实测扭矩（Nm）
 float M1_torque_meas = 0.0f;
@@ -41,8 +48,8 @@ void receive_tm_feedback()
   // float pos2_rel = sig_m2.pos - initial_pos_2;
 }
 
-
-sig motor的多与函数：
+## 5:
+sig motor的多余函数，都可以直接删掉
 float Sig_torque_control(float force_des, float dt_force_des, float force_t, float dt_force_t, float kp, float kd, float tau_ff)  
 {
   float tor_cmd = 0;   
